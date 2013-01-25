@@ -24,7 +24,7 @@ public class IndexServlet extends HttpServlet {
         UserControlAccess ucl = UserControlAccess.getInstance();
         String displayName = ucl.getUserDisplayName();
         if (displayName == null) {
-            resp.setStatus(HttpServletResponse.SC_FORBIDDEN);
+            resp.sendRedirect("register.html");
             return;
         }
         List<Entity> orders = Order.getOrdersByDate(new Date());
