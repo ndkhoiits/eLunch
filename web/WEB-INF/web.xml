@@ -18,6 +18,10 @@
         <servlet-name>User Management</servlet-name>
         <servlet-class>com.khoinguyen.elunch.servlet.UserManagement</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>MenuManagement</servlet-name>
+        <servlet-class>com.khoinguyen.elunch.servlet.MenuManagementServlet</servlet-class>
+    </servlet>
 
     <servlet-mapping>
         <servlet-name>User Management</servlet-name>
@@ -34,6 +38,14 @@
     <servlet-mapping>
         <servlet-name>index</servlet-name>
         <url-pattern>/index</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>MenuManagement</servlet-name>
+        <url-pattern>/admin/menumanagement</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>MenuManagement</servlet-name>
+        <url-pattern>/menumanagement</url-pattern>
     </servlet-mapping>
     <welcome-file-list>
         <welcome-file>index</welcome-file>

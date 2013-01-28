@@ -11,18 +11,17 @@ import com.google.appengine.api.users.User;
 import com.google.appengine.api.users.UserService;
 import com.google.appengine.api.users.UserServiceFactory;
 import com.khoinguyen.elunch.model.Order;
+import com.khoinguyen.elunch.util.UserControlAccess;
 
 public class OrderServlet extends HttpServlet {
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp)
 			throws ServletException, IOException {
-		UserService userService = UserServiceFactory.getUserService();
-		User user = userService.getCurrentUser();
-		String email = user.getEmail();
-		String userId = user.getUserId();
+        UserControlAccess acl = UserControlAccess.getInstance();
+        String displayName = acl.getUserDisplayName();
 		String set = req.getParameter("set");
 		String note = req.getParameter("note");
-		Order.createOrUpdateOrder(email, set, note);
+		Order.createOrUpdateOrder(displayName, set, note);
 		resp.sendRedirect("index");
 	}
 }

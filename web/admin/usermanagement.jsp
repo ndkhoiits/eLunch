@@ -14,15 +14,9 @@
     </style>
 </head>
 <body>
-<div class="navbar navbar-inverse navbar-fixed-top">
-    <div class="navbar-inner">
-        <div class="container">
-            <a class="brand">eLunch</a>
-        </div>
-    </div>
-</div>
+<jsp:include page="header.jsp"></jsp:include>
 <div class="container">
-    <h2>Admin Page</h2>
+    <h2>User Management</h2>
 
     <div class="row">
         <div class="span4">

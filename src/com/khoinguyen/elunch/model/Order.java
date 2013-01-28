@@ -9,6 +9,7 @@ import com.google.appengine.api.datastore.Entity;
 import com.google.appengine.api.datastore.Key;
 import com.google.appengine.api.datastore.KeyFactory;
 import com.google.appengine.api.datastore.Query;
+import com.khoinguyen.elunch.util.DateUtil;
 import com.khoinguyen.elunch.util.Util;
 
 public class Order {
@@ -16,19 +17,19 @@ public class Order {
 	public static final String User = "User";
 
 	public static void createOrUpdateOrder(String user, String set, String note) {
-		Date today = new Date();
-		Entity order = getOrder(today, user);
-		if (order == null) {
-			Key k = KeyFactory.createKey(User, user);
-			order = new Entity(Order, k);
-			order.setProperty("date", today);
-			order.setProperty("user", user);
-		}
-		order.setProperty("set", set);
-		order.setProperty("note", note);
+        Date today = DateUtil.getSingaporeDate(new Date());
+        Entity order = getOrder(today, user);
+        if (order == null) {
+            Key k = KeyFactory.createKey(User, user);
+            order = new Entity(Order, k);
+            order.setProperty("user", user);
+        }
+        order.setProperty("date", today);
+        order.setProperty("set", set);
+        order.setProperty("note", note);
 
-		Util.persistEntity(order);
-	}
+        Util.persistEntity(order);
+    }
 
 	private static Entity getOrder(Date date, String user) {
 		Key key = KeyFactory.createKey(User, user);
