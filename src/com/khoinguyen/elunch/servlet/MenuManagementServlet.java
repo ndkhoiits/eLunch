@@ -3,6 +3,7 @@ package com.khoinguyen.elunch.servlet;
 import com.google.appengine.api.datastore.Entity;
 import com.google.gson.Gson;
 import com.khoinguyen.elunch.model.Menu;
+import com.khoinguyen.elunch.util.DateUtil;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -25,7 +26,7 @@ public class MenuManagementServlet extends HttpServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String action = req.getParameter("action");
         if (action != null && action.equals("getmenu")) {
-            String todayMenu = Menu.getMenuHtml(new Date());
+            String todayMenu = Menu.getMenuHtml(DateUtil.getSingaporeDate());
             Gson gs = new Gson();
             String json = gs.toJson(todayMenu);
             resp.setContentType("application/json");

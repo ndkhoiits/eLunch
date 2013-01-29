@@ -18,7 +18,16 @@ public class User {
             user = new Entity(USER_ENTITY, email);
         }
         user.setProperty("displayName", displayName);
+        user.setProperty("subscribe", true);
         Util.persistEntity(user);
+    }
+
+    public static void setUserSubsrcibe(String email, boolean isSubscribe) {
+        Entity user = getUser(email);
+        if (user != null) {
+            user.setProperty("subscribe", isSubscribe);
+            Util.persistEntity(user);
+        }
     }
 
     public static void deleteUser(String email) {

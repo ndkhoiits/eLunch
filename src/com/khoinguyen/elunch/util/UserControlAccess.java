@@ -14,6 +14,11 @@ import com.google.appengine.api.users.UserServiceFactory;
  */
 public class UserControlAccess {
     private static UserControlAccess _instance;
+
+    public UserService getUserService() {
+        return userService;
+    }
+
     private UserService userService;
 
     private UserControlAccess() {

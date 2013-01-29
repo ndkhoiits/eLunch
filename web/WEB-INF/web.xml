@@ -22,7 +22,24 @@
         <servlet-name>MenuManagement</servlet-name>
         <servlet-class>com.khoinguyen.elunch.servlet.MenuManagementServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>SendEmail</servlet-name>
+        <servlet-class>com.khoinguyen.elunch.servlet.SendEmail</servlet-class>
+    </servlet>
 
+    <servlet>
+        <servlet-name>SubscribeEmail</servlet-name>
+        <servlet-class>com.khoinguyen.elunch.servlet.EmailSubscribe</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>SubscribeEmail</servlet-name>
+        <url-pattern>/email</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>SendEmail</servlet-name>
+        <url-pattern>/admin/email</url-pattern>
+    </servlet-mapping>
     <servlet-mapping>
         <servlet-name>User Management</servlet-name>
         <url-pattern>/admin/usermanagement</url-pattern>

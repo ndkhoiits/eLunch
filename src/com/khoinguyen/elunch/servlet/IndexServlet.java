@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.google.appengine.api.datastore.Entity;
 import com.khoinguyen.elunch.model.Order;
+import com.khoinguyen.elunch.util.DateUtil;
 import com.khoinguyen.elunch.util.UserControlAccess;
 
 public class IndexServlet extends HttpServlet {
@@ -20,11 +21,13 @@ public class IndexServlet extends HttpServlet {
 
         UserControlAccess ucl = UserControlAccess.getInstance();
         String displayName = ucl.getUserDisplayName();
+        String logoutURL = ucl.getUserService().createLogoutURL(req.getRequestURI());
         if (displayName == null) {
-            resp.sendRedirect("register.html");
+            resp.setContentType("text/html");
+            resp.getWriter().print("You are not an user of eLunch system, please contact with your leader to proceed, thanks. <br/> <a href='" + logoutURL + "'>Logout.</a>");
             return;
         }
-        List<Entity> orders = Order.getOrdersByDate(new Date());
+        List<Entity> orders = Order.getOrdersByDate(DateUtil.getSingaporeDate(new Date()));
         req.setAttribute("orders", orders);
         req.setAttribute("displayName", displayName);
         Map<String, List<Entity>> ordersBySet = new LinkedHashMap<String, List<Entity>>();
@@ -51,6 +54,7 @@ public class IndexServlet extends HttpServlet {
             ordersBySet.put("D", setD);
         }
         req.setAttribute("ordersbyset", ordersBySet);
+        req.setAttribute("logoutURL", logoutURL);
 
         RequestDispatcher dispatcher = req.getRequestDispatcher("index.jsp");
         dispatcher.forward(req, resp);

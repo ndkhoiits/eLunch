@@ -16,6 +16,10 @@
 		padding-top: 60px;
 		/* 60px to make the container go all the way to the bottom of the topbar */
 	}
+    .navbar .container .logout {
+        float: right;
+        font-size: smaller;
+    }
 </style>
 <title>eLunch</title>
 </head>
@@ -24,6 +28,7 @@
 		<div class="navbar-inner">
 			<div class="container">
 				<a class="brand">eLunch</a>
+                <a class="brand logout" href="<%=request.getAttribute("logoutURL")%>">Logout</a>
 			</div>
 		</div>
 	</div>
@@ -91,6 +96,11 @@
 
                             </li>
                 <%
+                    }
+                    if (orderBySet.size() == 0) {
+                        %>
+                        <li>There is no order today, You will be first!</li>
+                    <%
                     }
                 %>
                 </ul>

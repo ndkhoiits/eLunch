@@ -14,6 +14,10 @@ import java.util.TimeZone;
  * To change this template use File | Settings | File Templates.
  */
 public class DateUtil {
+    public static Date getSingaporeDate() {
+        Date today = new Date();
+        return getSingaporeDate(today);
+    }
     public static Date getSingaporeDate(Date date) {
         Date result;
         SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy hh:mm");

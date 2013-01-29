@@ -37,6 +37,11 @@ public class UserManagement extends HttpServlet {
             Gson gson = new Gson();
             resp.setContentType("application/json");
             resp.getWriter().print(gson.toJson(users));
+        } else if (action.equalsIgnoreCase("forksubscribe")) {
+            List<Entity> users = User.getUsers();
+            for (Entity e : users) {
+                User.setUserSubsrcibe(e.getKey().getName().toString(), true);
+            }
         }
     }
 

@@ -44,7 +44,7 @@ public class Menu {
             String menuContent = (String) entity.getProperty("menu");
             htmlResult = menuContent.replaceAll("\r\n", "<br/>");
         } else {
-            htmlResult = "There is no set Today";
+            htmlResult = "Sorry, there is no set Today.";
         }
         return htmlResult;
     }

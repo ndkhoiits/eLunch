@@ -47,7 +47,8 @@
                 <div class="bar" style="width: 100%;"></div>
             </div>
             <div id="result" style="display: none">
-                <div></div>
+                <div class="content"></div>
+                <button class="btn" id="sendEmailBtn">Send Email</button>
             </div>
         </div>
     <script type="text/javascript" src="http://twitter.github.com/bootstrap/assets/js/jquery.js"></script>
@@ -72,7 +73,7 @@
             };
 
             var populateData = function(data) {
-                $("#result").html(data);
+                $("#result .content").html(data);
             }
             var showLoading = function() {
                 $("#result").hide();
@@ -94,6 +95,24 @@
                     showResult();
                 }
             });
+
+            $("#sendEmailBtn").click(function () {
+                if (confirm("Do you want to send the menu to all subscribed emails ?")) {
+                    $(this).attr("disabled", "disabled");
+                    sendEmail();
+                }
+
+            });
+            function sendEmail() {
+                $.ajax({
+                    url: '/admin/email',
+                    data: {"action": "send"},
+                    success: function(response) {
+                        alert(response);
+                    }
+                });
+            }
+
         });
     </script>
 </div>
