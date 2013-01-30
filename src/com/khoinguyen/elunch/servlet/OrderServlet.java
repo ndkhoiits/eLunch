@@ -7,10 +7,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.google.appengine.api.users.User;
-import com.google.appengine.api.users.UserService;
-import com.google.appengine.api.users.UserServiceFactory;
-import com.khoinguyen.elunch.model.Order;
+import com.khoinguyen.elunch.oldmodel.Order;
 import com.khoinguyen.elunch.util.UserControlAccess;
 
 public class OrderServlet extends HttpServlet {

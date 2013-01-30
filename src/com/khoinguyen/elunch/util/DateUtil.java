@@ -7,11 +7,7 @@ import java.util.Date;
 import java.util.TimeZone;
 
 /**
- * Created with IntelliJ IDEA.
- * User: khoinguyen
- * Date: 1/26/13
- * Time: 9:21 AM
- * To change this template use File | Settings | File Templates.
+ * @author <a href="mailto:ndkhoi168@gmail.com">Khoi NGUYEN</a>
  */
 public class DateUtil {
     public static Date getSingaporeDate() {

@@ -49,13 +49,17 @@
                         <th>No</th>
                         <th>Email</th>
                         <th>Display Name</th>
+                        <th>Active</th>
+                        <th>Subscribe</th>
                     </tr>
                 </thead>
                 <tbody data-bind="foreach: users">
                     <tr>
                         <td data-bind="text: $index() + 1"></td>
-                        <td data-bind="text: emailAddress"></td>
+                        <td data-bind="text: email"></td>
                         <td data-bind="text: displayName"></td>
+                        <td data-bind="text: active || 'true'"></td>
+                        <td data-bind="text: subscribe"></td>
                     </tr>
                 </tbody>
             </table>

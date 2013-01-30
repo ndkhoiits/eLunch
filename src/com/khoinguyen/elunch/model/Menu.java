@@ -1,61 +1,85 @@
+/*
+ *  Copyright (C) 2013 Khoi NGUYEN (ndkhoi168@gmail.com)
+ *
+ *  This file is part of eLunch.
+ *
+ *  eLunch is free software: you can redistribute it and/or modify
+ *  it under the terms of the GNU Lesser General Public License as published by
+ *  the Free Software Foundation, either version 3 of the License, or
+ *  (at your option) any later version.
+ *
+ *  eLunch is distributed in the hope that it will be useful,
+ *  but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *  GNU Lesser General Public License for more details.
+ *
+ *  You should have received a copy of the GNU Lesser General Public License
+ *  along with eLunch.  If not, see <http://www.gnu.org/licenses/>.
+ */
 package com.khoinguyen.elunch.model;
 
-import com.google.appengine.api.datastore.Entity;
-import com.google.appengine.api.datastore.Key;
-import com.google.appengine.api.datastore.KeyFactory;
-import com.google.appengine.api.datastore.Query;
-import com.khoinguyen.elunch.util.DateUtil;
-import com.khoinguyen.elunch.util.Util;
+import com.khoinguyen.elunch.dao.PMF;
 
+import javax.jdo.PersistenceManager;
+import javax.jdo.Query;
+import javax.jdo.annotations.IdGeneratorStrategy;
+import javax.jdo.annotations.PersistenceCapable;
+import javax.jdo.annotations.Persistent;
+import javax.jdo.annotations.PrimaryKey;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
 /**
- * Created with IntelliJ IDEA.
- * User: khoinguyen
- * Date: 1/26/13
- * Time: 10:15 AM
- * To change this template use File | Settings | File Templates.
+ * @author <a href="mailto:ndkhoi168@gmail.com">Khoi NGUYEN</a>
  */
+@PersistenceCapable
 public class Menu {
-    private static final String MENU_ENTITY = "Menu";
+    @PrimaryKey
+    @Persistent(valueStrategy = IdGeneratorStrategy.IDENTITY)
+    private String date;
 
-    public static void createOrOrderMenu(Date date, String menu) {
-        Entity currentMenu;
-        currentMenu = getMenu(DateUtil.getSingaporeDate(date));
-        if (currentMenu == null) {
-            currentMenu = new Entity(MENU_ENTITY, getDateInFormat(date));
-        }
-        currentMenu.setProperty("menu", menu);
-        Util.persistEntity(currentMenu);
+    @Persistent
+    private String menu;
+
+    private static final PersistenceManager pmf = PMF.get().getPersistenceManager();
+
+    public Menu(String menu, String date) {
+        this.menu = menu;
+        this.date = date;
     }
 
-    private static String getDateInFormat(Date date) {
+    public void save() {
+        PMF.get().getPersistenceManager().makePersistent(this);
+    }
+
+    public static Menu getMenu(Date date) {
         SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
         String strDate = sdf.format(date);
-        return strDate;
-    }
-
-    public static String getMenuHtml(Date date) {
-        Entity entity = getMenu(date);
-        String htmlResult = "";
-        if (entity != null) {
-            String menuContent = (String) entity.getProperty("menu");
-            htmlResult = menuContent.replaceAll("\r\n", "<br/>");
-        } else {
-            htmlResult = "Sorry, there is no set Today.";
-        }
-        return htmlResult;
-    }
-    public static Entity getMenu(Date date) {
-        String strDate = getDateInFormat(date);
-        Key key = KeyFactory.createKey(MENU_ENTITY, strDate);
-        Query q = new Query(MENU_ENTITY, key);
-        List<Entity> menus = Util.queryAsList(q);
+        Query query = pmf.newQuery(Menu.class, "date == '" + strDate + "'");
+        List<Menu> menus = (List<Menu>) query.execute();
         if (menus != null && menus.size() > 0) {
             return menus.get(0);
         }
         return null;
+    }
+
+    public static String getMenuAsHtml(Date date) {
+        Menu menuEntity = getMenu(date);
+        String result = "";
+        if (menuEntity != null) {
+            result = menuEntity.getMenu().replaceAll("\r\n", "<br/>");
+        } else {
+            result = "Sorry, there is no set Today.";
+        }
+        return result;
+    }
+
+    public String getDate() {
+        return date;
+    }
+
+    public String getMenu() {
+        return menu;
     }
 }

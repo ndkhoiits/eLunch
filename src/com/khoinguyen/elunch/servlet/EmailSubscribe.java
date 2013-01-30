@@ -1,7 +1,6 @@
 package com.khoinguyen.elunch.servlet;
 
-import com.google.appengine.api.datastore.Entity;
-import com.khoinguyen.elunch.model.User;
+import com.khoinguyen.elunch.model.Users;
 import com.khoinguyen.elunch.util.UserControlAccess;
 
 import javax.servlet.ServletException;
@@ -12,11 +11,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 
 /**
- * Created with IntelliJ IDEA.
- * User: khoinguyen
- * Date: 1/30/13
- * Time: 12:58 AM
- * To change this template use File | Settings | File Templates.
+ * @author <a href="mailto:ndkhoi168@gmail.com">Khoi NGUYEN</a>
  */
 public class EmailSubscribe extends HttpServlet {
 
@@ -46,9 +41,10 @@ public class EmailSubscribe extends HttpServlet {
     }
 
     private boolean doSubcribe(String email, boolean b) {
-        Entity user = User.getUser(email);
-        if (user != null) {
-            User.setUserSubsrcibe(email, b);
+        Users entity = Users.getUserByEmail(email);
+        if (entity != null) {
+            entity.setSubscribe(b);
+            entity.save();
             return true;
         }
         return false;

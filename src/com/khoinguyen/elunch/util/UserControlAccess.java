@@ -1,16 +1,12 @@
 package com.khoinguyen.elunch.util;
 
-import com.google.appengine.api.datastore.Entity;
 import com.google.appengine.api.users.User;
 import com.google.appengine.api.users.UserService;
 import com.google.appengine.api.users.UserServiceFactory;
+import com.khoinguyen.elunch.model.Users;
 
 /**
- * Created with IntelliJ IDEA.
- * User: khoinguyen
- * Date: 1/26/13
- * Time: 1:07 AM
- * To change this template use File | Settings | File Templates.
+ * @author <a href="mailto:ndkhoi168@gmail.com">Khoi NGUYEN</a>
  */
 public class UserControlAccess {
     private static UserControlAccess _instance;
@@ -39,11 +35,7 @@ public class UserControlAccess {
 
     public String getUserDisplayName() {
         String emailAddress = getUserEmail();
-        Entity user = com.khoinguyen.elunch.model.User.getUser(emailAddress);
-        String displayName = null;
-        if (user != null) {
-            displayName = (String) user.getProperty("displayName");
-        }
+        String displayName = Users.getDisplayNameByEmail(emailAddress);
         return displayName;
     }
 }

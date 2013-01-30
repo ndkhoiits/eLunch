@@ -1,4 +1,4 @@
-package com.khoinguyen.elunch.model;
+package com.khoinguyen.elunch.oldmodel;
 
 import java.util.ArrayList;
 import java.util.Calendar;

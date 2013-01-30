@@ -1,8 +1,8 @@
 package com.khoinguyen.elunch.servlet;
 
-import com.google.appengine.api.datastore.Entity;
 import com.google.gson.Gson;
-import com.khoinguyen.elunch.model.User;
+import com.google.gson.GsonBuilder;
+import com.khoinguyen.elunch.model.Users;
 
 
 import javax.servlet.ServletException;
@@ -10,15 +10,10 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Created with IntelliJ IDEA.
- * User: fpta-dknguyen
- * Date: 1/25/13
- * Time: 1:19 PM
- * To change this template use File | Settings | File Templates.
+ * @author <a href="mailto:ndkhoi168@gmail.com">Khoi NGUYEN</a>
  */
 public class UserManagement extends HttpServlet {
     @Override
@@ -30,59 +25,23 @@ public class UserManagement extends HttpServlet {
             return;
         }
         if (action.equals("add")) {
-            User.createOrUpdateUser(email, displayName);
+            Users entity = new Users();
+            entity.setEmail(email);
+            entity.setDisplayName(displayName);
+            entity.save();
             resp.sendRedirect("/admin/usermanagement.jsp");
         } else if (action.equals("getUsers")) {
-            List<UserVO> users = getListUser();
-            Gson gson = new Gson();
+            List<Users> entity = Users.getUsers();
+            Gson gson = new GsonBuilder().serializeNulls().create();
             resp.setContentType("application/json");
-            resp.getWriter().print(gson.toJson(users));
+            resp.getWriter().print(gson.toJson(entity));
         } else if (action.equalsIgnoreCase("forksubscribe")) {
-            List<Entity> users = User.getUsers();
-            for (Entity e : users) {
-                User.setUserSubsrcibe(e.getKey().getName().toString(), true);
+
+            List<Users> users = Users.getUsers();
+            for (Users e : users) {
+                e.setSubscribe(true);
+                e.save();
             }
         }
-    }
-
-    private List<UserVO> getListUser() {
-        List<Entity> users = User.getUsers();
-        List<UserVO> userVos = new ArrayList<UserVO>();
-        if (users != null && users.size() > 0) {
-            for (Entity e : users) {
-                String email = e.getKey().getName();
-                String name = (String) e.getProperty("displayName");
-                UserVO vo = new UserVO(email, name);
-                userVos.add(vo);
-            }
-        }
-        return userVos;
-    }
-}
-
-class UserVO {
-    private String emailAddress;
-    private String displayName;
-
-    public UserVO(String email, String name) {
-        this.emailAddress = email;
-        this.displayName = name;
-    }
-
-    public String getDisplayName() {
-        return displayName;
-    }
-
-    public void setDisplayName(String displayName) {
-        this.displayName = displayName;
-    }
-
-    public String getEmailAddress() {
-
-        return emailAddress;
-    }
-
-    public void setEmailAddress(String emailAddress) {
-        this.emailAddress = emailAddress;
     }
 }

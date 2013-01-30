@@ -10,7 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.google.appengine.api.datastore.Entity;
-import com.khoinguyen.elunch.model.Order;
+import com.khoinguyen.elunch.oldmodel.Order;
 import com.khoinguyen.elunch.util.DateUtil;
 import com.khoinguyen.elunch.util.UserControlAccess;
 
