@@ -46,7 +46,7 @@ public class SendEmail extends HttpServlet {
                 messageText += "<b>Good morning, this is menu for " + strToday + "</b><br/><br/>";
                 messageText += menu;
                 messageText += "<br/>Let go to " + osimLunchURL + " and order.";
-                messageText += "<br/><hr><p>You received this message because you are member of StarHub Onsiters Family and enjoy lunch with us!</p>";
+                messageText += "<br/><hr><p>You received this message because you are member of XXX Onsiters Family and enjoy lunch with us!</p>";
                 messageText += "<p>If you don't want to receive this email, please unsubscibe by access to " + unsubscribeURL + "</p>";
                 messageText += "<br/>To receive the email for menu again, you can request to " + subscribeURL;
 
