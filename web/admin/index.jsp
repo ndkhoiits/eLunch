@@ -51,7 +51,7 @@
                 <button class="btn" id="sendEmailBtn">Send Email</button>
             </div>
         </div>
-    <script type="text/javascript" src="http://twitter.github.com/bootstrap/assets/js/jquery.js"></script>
+    <script type="text/javascript" src="https://code.jquery.com/jquery-1.11.3.min.js"></script>
     <script type="text/javascript" src="/bootstrap/js/bootstrap.min.js"></script>
     <script type="text/javascript" src="http://www.eyecon.ro/bootstrap-datepicker/js/bootstrap-datepicker.js"></script>
 
